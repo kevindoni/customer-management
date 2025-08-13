@@ -129,8 +129,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## 📞 Kontak
 
-- **Developer**: Kevin Doni
-- **Email**: [email protected]
+- **Developer**: GriyaNet
+- **Developer** : Kevin DOni
+- **Youtube**: [GriyaNet] (https://www.youtube.com/@griya-net)
 - **GitHub**: [@kevindoni](https://github.com/kevindoni)
 
 ## 🙏 Terima Kasih
