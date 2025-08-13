@@ -64,7 +64,9 @@ class Mikrotik extends Model
 
     public function paketsOrderByPrice(): HasMany
     {
-        return $this->hasMany(\App\Models\Pakets\Paket::class)->orderByRaw('CAST(price as DECIMAL(8,2)) ASC')->orderBy('name', 'ASC');
+        return $this->hasMany(\App\Models\Pakets\Paket::class)
+            ->orderBy('price', 'ASC')
+            ->orderBy('name', 'ASC');
     }
 
     public function mikrotik_monitoring(): HasOne

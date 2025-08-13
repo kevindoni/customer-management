@@ -24,22 +24,29 @@ class Dashboard extends Component
     {
        // $customerPaket = CustomerPaket::first();
        // $generalLogServices->create_invoice($customerPaket);
-        $this->years = Invoice::selectRaw('extract(year FROM periode) AS year')
+        $this->years = Invoice::selectRaw('YEAR(periode) AS year')
             ->distinct()
             ->orderBy('year', 'desc')
             ->get();
 
-
         $billingPakets = Invoice::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME(periode) as month_name"))
             ->whereYear('periode',  $this->search_with_year ?? date('Y'))
-            ->groupBy(DB::raw("Month(periode)"))
+            ->groupBy(DB::raw("MONTH(periode)"))
             ->get();
 
         $billingChart = $billingPakets
             ->reduce(
                 function ($billingChart, $data) {
-                    $unpayment = $data->where('status','!=','paid')->whereMonth('periode', Carbon::parse($data->month_name))->count();
-                    $payment = $data->whereStatus('paid')->whereMonth('periode', Carbon::parse($data->month_name))->count();
+                    // Perbaiki logic filtering - gunakan filter yang tepat
+                    $monthNumber = Carbon::parse($data->month_name)->month;
+                    $unpayment = Invoice::whereYear('periode', $this->search_with_year ?? date('Y'))
+                        ->whereMonth('periode', $monthNumber)
+                        ->where('status', '!=', 'paid')
+                        ->count();
+                    $payment = Invoice::whereYear('periode', $this->search_with_year ?? date('Y'))
+                        ->whereMonth('periode', $monthNumber)
+                        ->where('status', 'paid')
+                        ->count();
 
                     return $billingChart
                         ->addSeriesColumn('Unpayment', $data->month_name, $unpayment)->addColor('#f90704')
@@ -77,9 +84,6 @@ class Dashboard extends Component
                 ->setDataLabelsEnabled($this->showDataLabels)
                ->setColors(['#19aa02','#03A9F4','#f90704'])
             );
-
-
-
 
         return view('livewire.admin.dashboard', [
             'billingChart' => $billingChart,

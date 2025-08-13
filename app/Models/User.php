@@ -35,13 +35,14 @@ class User extends Authenticatable
 
     public function getRedirectRoute()
     {
-        /* return match($this->hasRole) {
-            'admin' => 'dashboard',
-            'customer' => 'customer.dashboard',
-            // ...
-        };
-        */
-        return 'customer.dashboard';
+        if ($this->hasRole('admin') || $this->hasRole('technitian') || $this->hasRole('teller')) {
+            return 'dashboard';
+        } elseif ($this->hasRole('customer')) {
+            return 'customer.dashboard';
+        }
+        
+        // Default fallback
+        return 'dashboard';
     }
     /**
      * Get the options for generating the slug.

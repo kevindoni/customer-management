@@ -8,7 +8,7 @@
                 @endif
             </flux:select.option>
         @endif
-        @foreach (\App\Models\Pakets\Paket::where('disabled', false)->where('mikrotik_id', $customerPaket->paket->mikrotik_id)->orderByRaw('CAST(price as DECIMAL(8,2)) ASC')->orderBy('name', 'ASC')->get() as $paket)
+        @foreach (\App\Models\Pakets\Paket::where('disabled', false)->where('mikrotik_id', $customerPaket->paket->mikrotik_id)->orderBy('price', 'ASC')->orderBy('name', 'ASC')->get() as $paket)
             <flux:select.option value="{{ $paket->id }}">
                 {{ $paket->name }} - @if ($paket->price == 0)
                     {{ trans('paket.free') }}

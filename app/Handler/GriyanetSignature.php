@@ -23,7 +23,7 @@ class GriyanetSignature implements SignatureValidator
         Log::info($signature);
         if (!$signature) {
           return false;
-           // throw InvalidConig::invalidWebhookResponse();
+           // throw InvalidConfig::invalidWebhookResponse();
         }
       //  Log::info($signature);
 

@@ -142,7 +142,7 @@ class BillingManagement extends Component
 
     public function getMonthsPeriode($year)
     {
-        return Invoice::whereYear('periode', $year)->selectRaw('extract(month FROM periode) AS month')
+        return Invoice::whereYear('periode', $year)->selectRaw('MONTH(periode) AS month')
             ->distinct()
             ->orderBy('month', 'desc');
     }
@@ -289,8 +289,7 @@ class BillingManagement extends Component
             ->when($this->search_name, function ($builder) {
                 //  $this->resetPage();
                 $builder->where(function ($builder) {
-                    $sql = "CONCAT(first_name,' ',COALESCE(last_name,''))  like ?";
-                    $builder->whereRaw($sql,  "%" . $this->search_name . "%")
+                    $builder->whereRaw("CONCAT(first_name,' ',COALESCE(last_name,'')) LIKE ?",  "%" . $this->search_name . "%")
                         ->orWhere('email', 'like', '%' . $this->search_name . '%');
                 });
             })
@@ -370,7 +369,7 @@ class BillingManagement extends Component
             ->distinct()
             ->orderBy('teller', 'asc')
             ->get();
-        $years = Invoice::selectRaw('extract(year FROM periode) AS year')
+        $years = Invoice::selectRaw('YEAR(periode) AS year')
             ->distinct()
             ->orderBy('year', 'desc')
             ->get();

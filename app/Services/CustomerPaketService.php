@@ -74,10 +74,19 @@ class CustomerPaketService
                 return $this->create_simpleque_ip_static($mikrotik, $customerPaket, $comment);
             }
         } catch (Exception $e) {
+            // Log error untuk debugging
+            \Log::error('Error creating customer paket: ' . $e->getMessage(), [
+                'customer_paket_id' => $customerPaket->id ?? 'unknown',
+                'user_id' => $customerPaket->user_id ?? 'unknown',
+                'paket_id' => $customerPaket->paket_id ?? 'unknown',
+                'exception' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             // $this->delete_user_on_mikrotik($customerPaket);
             return [
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => 'Terjadi kesalahan saat membuat paket customer: ' . $e->getMessage()
             ];
         }
     }
@@ -548,9 +557,17 @@ class CustomerPaketService
                 'success' => true
             ];
         } catch (Exception $e) {
+            // Log error untuk debugging
+            \Log::error('Error isolir secret PPP on mikrotik: ' . $e->getMessage(), [
+                'customer_paket_id' => $customerPaket->id ?? 'unknown',
+                'mikrotik_id' => $mikrotik->id ?? 'unknown',
+                'exception' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+            
             return [
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => 'Terjadi kesalahan saat isolir secret PPP: ' . $e->getMessage()
             ];
         }
         //}
