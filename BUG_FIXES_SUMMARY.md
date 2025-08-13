@@ -84,7 +84,32 @@
 - Error messages dalam bahasa Indonesia sesuai requirement
 - Logging ditambahkan untuk memudahkan debugging di production
 
+## 🔗 **Link Terkait**
+
+- **GitHub Repository**: https://github.com/kevindoni/customer-management
+- **Release v2.0.6**: https://github.com/kevindoni/customer-management/releases/tag/v2.0.6
+- **README**: [README.md](README.md)
+- **Changelog**: [CHANGELOG.md](CHANGELOG.md)
+
+## 📋 **Testing Checklist**
+
+- [x] Dashboard chart berfungsi dengan benar
+- [x] Error handling memberikan pesan yang informatif
+- [x] Database queries berjalan dengan efisien
+- [x] User routing berdasarkan role berfungsi
+- [x] Logging system berjalan dengan baik
+- [x] Security improvements sudah diimplementasi
+
+## 🚨 **Breaking Changes**
+
+- **Tidak ada breaking changes** dalam release ini
+- Semua perbaikan backward compatible
+- Migration database tidak diperlukan
+- Update dapat dilakukan secara langsung
+
 ---
-**Dibuat pada**: {{ date('Y-m-d H:i:s') }}
-**Versi**: 2.0.6
-**Status**: ✅ Semua Bug Telah Diperbaiki
+
+**Dibuat pada**: 13 Agustus 2025  
+**Versi**: 2.0.6  
+**Status**: ✅ Semua Bug Telah Diperbaiki  
+**Release**: https://github.com/kevindoni/customer-management/releases/tag/v2.0.6
